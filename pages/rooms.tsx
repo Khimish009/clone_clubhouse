@@ -1,8 +1,8 @@
+import React from 'react';
+import Link from 'next/link';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import { ConversationCard } from '../components/ConversationCard';
-import Link from 'next/link';
-import React from 'react';
 import Axios from '../core/axios';
 
 export default function RoomsPage({ rooms = [] }) {
