@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GithubStrategy } from 'passport-github';
-import { User } from '../../models';
+// import { User } from '../../models/user';
 
 passport.use(
   'github',
@@ -20,18 +20,18 @@ passport.use(
           phone: '',
         };
 
-        const findUser = await User.findOne({
-          where: {
-            username: obj.username,
-          },
-        });
+        // const findUser = await User.findOne({
+        //   where: {
+        //     username: obj.username,
+        //   },
+        // });
 
-        if (!findUser) {
-          const user = await User.create(obj);
-          return done(null, user.toJSON());
-        }
+        // if (!findUser) {
+        //   const user = await User.create(obj);
+        //   return done(null, user.toJSON());
+        // }
 
-        done(null, findUser);
+        // done(null, findUser);
       } catch (error) {
         done(error);
       }
@@ -39,14 +39,14 @@ passport.use(
   ),
 );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    err ? done(err) : done(null, user);
-  });
-});
+// passport.deserializeUser(function (id, done) {
+//   User.findById(id, function (err, user) {
+//     err ? done(err) : done(null, user);
+//   });
+// });
 
 export { passport };
