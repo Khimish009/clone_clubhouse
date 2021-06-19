@@ -16,18 +16,16 @@ export const TwitterStep: React.FC = () => {
       'Auth',
       'width=500,height=500,status=yes,toolbar=no,menubar=no,location=no',
     );
-
-    const timer = setInterval(() => {
-      if (win.closed) {
-        clearInterval(timer);
-        onNextStep();
-      }
-    }, 100);
   };
 
   React.useEffect(() => {
-    window.addEventListener('message', (data) => {
-      console.log(data);
+    window.addEventListener('message', ({ data }) => {
+      const user: string = data;
+      if (typeof user === 'string' && user.includes('avatarUrl')) {
+        const json = JSON.parse(user);
+        console.log(json)
+        onNextStep();
+      }
     });
   }, []);
 
