@@ -15,7 +15,8 @@ const steps = {
   5: EnterCodeStep,
 }
 
-type User = {
+export type UserData = {
+  id: number,
   fullname: string,
   avatarUrl: string,
   isActive: number,
@@ -25,17 +26,17 @@ type User = {
 
 type MainContextProps = {
   onNextStep: () => void;
-  setUserData: React.Dispatch<React.SetStateAction<User>>;
-  setFieldValue: (field: keyof User, value: string) => void;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  setFieldValue: (field: keyof UserData, value: string) => void;
   step: number;
-  userData: User;
+  userData?: UserData;
 };
 
 export const MainContext = React.createContext<MainContextProps>({} as MainContextProps);
 
 export default function Home() {
-  const [step, setStep] = useState<number>(0);
-  const [userData, setUserData] = useState<User>();
+  const [step, setStep] = useState<number>(4);
+  const [userData, setUserData] = useState<UserData>();
   const Step = steps[step];
 
   const onNextStep = () => {
