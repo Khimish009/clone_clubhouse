@@ -8,7 +8,7 @@ import { MainContext } from '../../../pages';
 import styles from './ChooseAvatarStep.module.scss';
 import { Axios } from '../../../core/axios';
 
-const uploadFile = async (file: File) => {
+const uploadFile = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
   formData.append('photo', file);
 
@@ -23,16 +23,20 @@ const uploadFile = async (file: File) => {
 
 export const ChooseAvatarStep: React.FC = () => {
   const { onNextStep, userData } = React.useContext(MainContext);
-  const [avatarUrl, setAvatarUrl] = React.useState<string>(''); // userData.avatarUrl
+  const [avatarUrl, setAvatarUrl] = React.useState<string>( userData?.avatarUrl ||
+    'https://sun2-3.userapi.com/s/v1/if1/CAR1Aao3yIica7xq77xIIMMTn29CME-cE5JSJBc8OTNVt29JQjnhR0ZsX_9IO-AzgwVbfgB6.jpg?size=200x0&quality=96&crop=138,44,1048,1048&ava=1'
+    );
   const inputFileRef = React.useRef<HTMLInputElement>(null);
 
   const handleChangeImage = async (event: Event) => {
-    const file = (event.target as HTMLInputElement).files[0];
+    const target = event.target as HTMLInputElement;
+    const file = target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setAvatarUrl(imageUrl);
       const data = await uploadFile(file);
-      console.log(data)
+      target.value = '';
+      setAvatarUrl(data.url);
     }
   };
 
