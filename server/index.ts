@@ -1,5 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import milter from 'multer';
+import { nanoid } from 'nanoid';
+import cors from 'cors';
 
 dotenv.config({
   path: 'server/.env',
@@ -8,10 +11,27 @@ dotenv.config({
 import './core/db';
 
 import { passport } from './core/passport';
+import multer from 'multer';
 
 const app = express();
+const uploader = multer({
+  storage: milter.diskStorage({
+    destination: function (_, __, cb) {
+      cb(null, 'public/avatars');
+    },
+    filename: function (_, file, cb) {
+      cb(null, file.fieldname + '-' + nanoid(6) + '.' + file.mimetype.split('/').pop());
+    }
+  })
+})
+
+app.use(cors());
 
 app.use(passport.initialize());
+
+app.post('/upload', uploader.single('photo'), (req, res) => {
+  res.json(req.file);
+});
 
 app.get('/auth/github', passport.authenticate('github'));
 

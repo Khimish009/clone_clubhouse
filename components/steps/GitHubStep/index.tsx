@@ -49,7 +49,7 @@ export const GitHubStep: React.FC = () => {
           </svg>
         </div>
         <h2 className="mb-40">Archakov Dennis</h2>
-        <Button onClick={onClickAuth}>
+        <Button onClick={onClickAuth} className={styles.button}>
           <img src="/static/github.svg" alt="GitHub logo" className={styles.gitHubLogo} />
           Import from GitHub
           <img className="d-ib ml-10" src="/static/arrow.svg" />
