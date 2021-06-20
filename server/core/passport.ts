@@ -2,6 +2,8 @@ import passport from 'passport';
 import { Strategy as GithubStrategy } from 'passport-github';
 import { User } from '../../models';
 
+console.log(User, 111)
+
 passport.use(
   'github',
   new GithubStrategy(

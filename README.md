@@ -10,3 +10,7 @@
 
 1. `npm run server` - запускает Express-сервер
 2. `npm run dev` - запускает NextJS-приложение
+
+# Установка pgAdmin4
+https://www.youtube.com/watch?v=kWUW3sMK0Mk&list=WL&index=3
+https://www.pgadmin.org/download/pgadmin-4-apt/

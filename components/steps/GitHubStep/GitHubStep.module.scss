@@ -25,11 +25,19 @@
   width: 460px;
 }
 
-.twitterLogo {
+.gitHubLogo {
   display: inline-block;
   position: relative;
-  top: 1px;
-  margin-right: 6px;
+  margin-right: 10px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #24292E;
+  &:hover {
+    background-color: lighten(#24292E, 10);
+  }
 }
 
 .title {

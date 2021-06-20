@@ -32,3 +32,22 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# JPEG
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
+
+# JPEG 2000
+*.jp2
+*.j2k
+*.jpf
+*.jpx
+*.jpm
+*.mj2
+
+# Portable Network Graphics
+*.png

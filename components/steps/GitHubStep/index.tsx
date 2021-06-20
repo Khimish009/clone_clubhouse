@@ -3,37 +3,35 @@ import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
 import { StepInfo } from '../../StepInfo';
 
-import styles from './TwitterStep.module.scss';
+import styles from './GitHubStep.module.scss';
 import React from 'react';
 import { MainContext } from '../../../pages';
 
-export const TwitterStep: React.FC = () => {
-  const { onNextStep } = React.useContext(MainContext);
+export const GitHubStep: React.FC = () => {
+  const { onNextStep, setUserData } = React.useContext(MainContext);
 
   const onClickAuth = () => {
-    const win = window.open(
+    window.open(
       'http://localhost:3001/auth/github',
       'Auth',
       'width=500,height=500,status=yes,toolbar=no,menubar=no,location=no',
     );
-
-    const timer = setInterval(() => {
-      if (win.closed) {
-        clearInterval(timer);
-        onNextStep();
-      }
-    }, 100);
   };
 
   React.useEffect(() => {
-    window.addEventListener('message', (data) => {
-      console.log(data);
+    window.addEventListener('message', ({ data }) => {
+      const user: string = data;
+      if (typeof user === 'string' && user.includes('avatarUrl')) {
+        const json = JSON.parse(user);
+        setUserData(json);
+        onNextStep();
+      }
     });
   }, []);
 
   return (
     <div className={styles.block}>
-      <StepInfo icon="/static/connect.png" title="Do you want import info from Twitter?" />
+      <StepInfo icon="/static/connect.png" title="Do you want import info from GitHub?" />
       <WhiteBlock className={clsx('m-auto mt-40', styles.whiteBlock)}>
         <div className={styles.avatar}>
           <b>AD</b>
@@ -51,8 +49,8 @@ export const TwitterStep: React.FC = () => {
           </svg>
         </div>
         <h2 className="mb-40">Archakov Dennis</h2>
-        <Button onClick={onClickAuth}>
-          <img src="/static/twitter.svg" alt="Twitter logo" className={styles.twitterLogo} />
+        <Button onClick={onClickAuth} className={styles.button}>
+          <img src="/static/github.svg" alt="GitHub logo" className={styles.gitHubLogo} />
           Import from GitHub
           <img className="d-ib ml-10" src="/static/arrow.svg" />
         </Button>
